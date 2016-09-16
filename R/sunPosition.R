@@ -1,35 +1,25 @@
-#'	Add	together	two	numbers.
+#'	Find sun azimuth and elevation angles
 #'
-#'	@param	x	A	number.
-#'	@param	y	A	number.
-#'	@return	The	sum	of	\code{x}	and	\code{y}.
+#'  The function returns sun azimuth and elevation given time and spatial location.
+#'
+#'	@param	timeGMT	Time, a \code{POSIXct} object.
+#'	@param	lon	Longitude.
+#'	@param  lat Latitude.
+#'	@return	A list with two components, \code{elevation} and \code{azimuth}, both in decimal degrees.
 #'	@examples
-#'	add(1,	1)
-#'	add(10,	1)
-add	<-	function(x,	y)	{
-  x	+	y
-}
+#'  time_local = as.POSIXct("1999-01-01 12:00:00", tz = "Asia/Jerusalem")
+#'  time_GMT = as.POSIXct(format.POSIXct(time_local, tz = "GMT"), tz = "GMT")
+#'  sunPosition(time_GMT, lat = 31.974447, lon = 34.791708)
 
+sunPosition <- function(timeGMT, lon, lat) {
 
-# Hello, world!
-#
-# This is an example function named 'hello'
-# which prints 'Hello, world!'.
-#
-# You can learn more about package authoring with RStudio at:
-#
-#   http://r-pkgs.had.co.nz/
-#
-# Some useful keyboard shortcuts for package authoring:
-#
-#   Build and Reload Package:  'Ctrl + Shift + B'
-#   Check Package:             'Ctrl + Shift + E'
-#   Test Package:              'Ctrl + Shift + T'
-
-# http://stackoverflow.com/questions/8708048/position-of-the-sun-given-time-of-day-latitude-and-longitude
-
-sunPosition <- function(year, month, day, hour=12, min=0, sec=0,
-                        lat=46.5, long=6.5) {
+  # Extract timestamp components
+  year = as.numeric(format(time_GMT, "%Y"))
+  month = as.numeric(format(time_GMT, "%m"))
+  day = as.numeric(format(time_GMT, "%d"))
+  hour = as.numeric(format(time_GMT, "%H"))
+  min = as.numeric(format(time_GMT, "%M"))
+  sec = as.numeric(format(time_GMT, "%S"))
 
   twopi <- 2 * pi
   deg2rad <- pi / 180
@@ -88,7 +78,7 @@ sunPosition <- function(year, month, day, hour=12, min=0, sec=0,
   gmst[gmst < 0] <- gmst[gmst < 0] + 24.
 
   # Local mean sidereal time
-  lmst <- gmst + long / 15.
+  lmst <- gmst + lon / 15.
   lmst <- lmst %% 24.
   lmst[lmst < 0] <- lmst[lmst < 0] + 24.
   lmst <- lmst * 15. * deg2rad
@@ -125,41 +115,27 @@ sunPosition <- function(year, month, day, hour=12, min=0, sec=0,
   return(list(elevation=el, azimuth=az))
 }
 
-time_local = as.POSIXct("2000-01-01 12:00:00", tz = "Asia/Jerusalem")
-time_GMT = format.POSIXct(time_local, tz = "GMT")
-time_GMT = as.POSIXct(time_GMT, tz = "GMT")
 
-# Test
-sunPosition(
-  year = as.numeric(format(time_GMT, "%Y")),
-  month = as.numeric(format(time_GMT, "%m")),
-  day = as.numeric(format(time_GMT, "%d")),
-  hour = as.numeric(format(time_GMT, "%H")),
-  min = as.numeric(format(time_GMT, "%M")),
-  sec = as.numeric(format(time_GMT, "%S")),
-  lat = 31.974447,
-  lon = 34.791708
-  )
 
-# Test NOAA
-testPts <- data.frame(lat = c(-41,-3,3, 41),
-                      long = c(0, 0, 0, 0))
-
-# Sun's position as returned by the NOAA Solar Calculator,
-NOAA <- data.frame(elevNOAA = c(72.44, 69.57, 63.57, 25.6),
-                   azNOAA = c(359.09, 180.79, 180.62, 180.3))
-
-# Sun's position as returned by sunPosition()
-sunPos <- sunPosition(year = 2012,
-                      month = 12,
-                      day = 22,
-                      hour = 12,
-                      min = 0,
-                      sec = 0,
-                      lat = testPts$lat,
-                      long = testPts$long)
-
-cbind(testPts, NOAA, sunPos)
+# # Test NOAA
+# testPts <- data.frame(lat = c(-41,-3,3, 41),
+#                       lon = c(0, 0, 0, 0))
+#
+# # Sun's position as returned by the NOAA Solar Calculator,
+# NOAA <- data.frame(elevNOAA = c(72.44, 69.57, 63.57, 25.6),
+#                    azNOAA = c(359.09, 180.79, 180.62, 180.3))
+#
+# # Sun's position as returned by sunPosition()
+# sunPos <- sunPosition(year = 2012,
+#                       month = 12,
+#                       day = 22,
+#                       hour = 12,
+#                       min = 0,
+#                       sec = 0,
+#                       lat = testPts$lat,
+#                       lon = testPts$lon)
+#
+# cbind(testPts, NOAA, sunPos)
 
 
 
