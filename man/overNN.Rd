@@ -7,9 +7,9 @@
 overNN(x, y)
 }
 \arguments{
-\item{x}{geometry (locations) of the queries}
+\item{x}{geometry (locations) of the queries; A matrix of n-D points with row denoting points, first column x/longitude, second column y/latitude, or a \code{Spatial} object that has a coordinates method}
 
-\item{y}{layer from which the geometries or attributes are queried}
+\item{y}{layer from which the geometries or attributes are queried; A matrix of n-D points with row denoting points, first column x/longitude, second column y/latitude, or a \code{Spatial} object that has a coordinates method}
 }
 \value{
 If \code{y} is only geometry (\code{SpatialPoints}), a vector with the index of \code{y} for each geometry matching x. If \code{y} has attribute data (\code{SpatialPointsDataFrame}), attribute data are returned.
@@ -18,26 +18,16 @@ If \code{y} is only geometry (\code{SpatialPoints}), a vector with the index of 
 Spatial join between two point layers based on nearest neighbors.
 }
 \examples{
-library(maps)
-library(maptools)
 library(rgeos)
-# Get data
-cities = us.cities[us.cities$capital == 2, ]
-coordinates(cities) = ~ long + lat
-proj4string(cities) = "+proj=longlat +datum=WGS84"
-usa = map("state", fill = TRUE, plot = FALSE)
-IDs = sapply(strsplit(usa$names, ":"), function(x) x[1])
-usa = map2SpatialPolygons(usa, IDs=IDs, proj4string = CRS("+proj=longlat +datum=WGS84"))
-ctr = gCentroid(usa, byid = TRUE)
-usa = usa[coordinates(usa)[,1] < -100, ]
-ctr = ctr[coordinates(ctr)[,1] < -100, ]
-cities = cities[coordinates(cities)[,1] < -100, ]
+data(states)
+data(cities)
+ctr = gCentroid(states, byid = TRUE)
 # Plot
 plot(cities)
-plot(usa, add = TRUE, border = "grey")
+plot(states, add = TRUE, border = "grey")
 plot(ctr, add = TRUE, col = "red")
 # Nearest neighbor spatial join
-nn_state_ctr = overNN(cities, ctr)
+nn_state_ctr = overNN(x = cities, y = ctr)
 # Draw lines between each city and nearest state centroid
 for(i in 1:nrow(cities)) {
 plot(

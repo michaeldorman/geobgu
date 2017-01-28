@@ -22,6 +22,9 @@ library(rgeos)
 data(states)
 data(cities)
 ctr = gCentroid(states, byid = TRUE)
+usAtlas = "+proj=laea +lat_0=45 +lon_0=-100 +x_0=0 +y_0=0 +a=6370997 +b=6370997 +units=m +no_defs"
+states = spTransform(states, usAtlas)
+cities = spTransform(cities, usAtlas)
 # Plot
 plot(cities)
 plot(states, add = TRUE, border = "grey")
