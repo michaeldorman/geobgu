@@ -8,5 +8,6 @@ License: GPL-2
 LazyData: TRUE
 Imports:
     sp,
-    rgeos
+    rgeos,
+    RANN
 RoxygenNote: 5.0.1
