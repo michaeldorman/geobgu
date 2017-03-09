@@ -59,7 +59,9 @@ overNNf = function(x, y) {
   nn_ids = nn$nn.idx
 
   # Take attributes from 'y' for the specified IDs
-  if(class(y) == "SpatialPointsDataFrame") y@data[nn_ids, ] else nn_ids
+  if(class(y) == "SpatialPointsDataFrame")
+    y@data[nn_ids, , drop = FALSE] else
+      nn_ids
 
 }
 

@@ -42,7 +42,9 @@ overNN = function(x, y) {
   nn_ids = apply(dist_matrix, 1, which.min)
 
   # Take attributes from 'y' for the specified IDs
-  if(class(y) == "SpatialPointsDataFrame") y@data[nn_ids, ] else nn_ids
+  if(class(y) == "SpatialPointsDataFrame")
+    y@data[nn_ids, , drop = FALSE] else
+      nn_ids
 
 }
 

@@ -9,5 +9,6 @@ LazyData: TRUE
 Imports:
     sp,
     rgeos,
-    RANN
+    RANN,
+    deldir
 RoxygenNote: 5.0.1
