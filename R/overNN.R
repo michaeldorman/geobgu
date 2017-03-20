@@ -35,6 +35,10 @@
 # Simple 'spatial only' join between two point layers according to 'nearest neighbor' criterion
 overNN = function(x, y) {
 
+  # Test if both inputs are SpatialPoints*
+  stopifnot(is(x, "SpatialPoints"))
+  stopifnot(is(y, "SpatialPoints"))
+
   # Pairwise distance matrix
   dist_matrix = sp::spDists(x, y)
 

@@ -4,7 +4,7 @@
 \alias{overNNf}
 \title{Nearest neighbor spatial join}
 \usage{
-overNNf(x, y)
+overNNf(x, y, check_proj = TRUE)
 }
 \arguments{
 \item{x}{geometry (locations) of the queries}

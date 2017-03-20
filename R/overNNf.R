@@ -37,25 +37,31 @@
 #' @export
 
 # Simple 'spatial only' join between two point layers according to 'nearest neighbor' criterion
-overNNf = function(x, y) {
+overNNf = function(x, y, check_proj = TRUE) {
 
   if(
     class(x) %in% c("SpatialPoints", "SpatialPointsDataFrame") &
     class(y) %in% c("SpatialPoints", "SpatialPointsDataFrame")
     ) {
     stopifnot(identicalCRS(x, y))
-    stopifnot(is.projected(x) & is.projected(y))
+    if(check_proj) stopifnot(is.projected(x) & is.projected(y))
     x_coord = sp::coordinates(x)
     y_coord = sp::coordinates(y)
   } else {
     if(class(x) %in% c("SpatialPoints", "SpatialPointsDataFrame"))
-      x_coord = sp::coordinates(x) else x_coord = as.matrix(x)
+      x_coord = sp::coordinates(x) else {
+        stopifnot(ncol(x) == 2)
+        x_coord = as.matrix(x)
+      }
     if(class(y) %in% c("SpatialPoints", "SpatialPointsDataFrame"))
-      y_coord = sp::coordinates(y) else y_coord = as.matrix(y)
+      y_coord = sp::coordinates(y) else {
+        stopifnot(ncol(y) == 2)
+        y_coord = as.matrix(y)
+      }
   }
 
   # ID of nearest point in 'y' for each point in 'x'
-  nn = RANN::nn2(data = y_coord, query = x_coord, k = 1)
+  nn = RANN::nn2(query = x_coord, data = y_coord, k = 1)
   nn_ids = nn$nn.idx
 
   # Take attributes from 'y' for the specified IDs
