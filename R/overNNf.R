@@ -7,6 +7,7 @@
 #'	@return	If \code{y} is only geometry (\code{SpatialPoints}), a vector with the index of \code{y} for each geometry matching x. If \code{y} has attribute data (\code{SpatialPointsDataFrame}), attribute data are returned.
 #'	@examples
 #' library(rgeos)
+#' library(rgdal)
 #' data(states)
 #' data(cities)
 #' usAtlas = "+proj=laea +lat_0=45 +lon_0=-100 +x_0=0 +y_0=0 +a=6370997 +b=6370997 +units=m +no_defs"
@@ -32,12 +33,30 @@
 #'   proj4string = sp::CRS(sp::proj4string(ctr))
 #'   ), add = TRUE
 #' )
+#' # Now with search 'radius' limitation...
+#' plot(cities)
+#' plot(states, add = TRUE, border = "grey")
+#' plot(ctr, add = TRUE, col = "red")
+#' nn_state_ctr = overNNf(x = cities, y = ctr, radius = 150000)
+#' # Draw lines between each city and nearest state centroid
+#' for(i in 1:nrow(cities)) {
+#' plot(
+#'   sp::SpatialLines(
+#'   list(sp::Lines(
+#'   list(sp::Line(rbind(
+#'   sp::coordinates(cities[i,]),
+#'   sp::coordinates(ctr[nn_state_ctr[i],])))),
+#'   ID = "a"
+#'   )),
+#'   proj4string = sp::CRS(sp::proj4string(ctr))
+#'   ), add = TRUE
+#' )
 #' }
 #'
 #' @export
 
 # Simple 'spatial only' join between two point layers according to 'nearest neighbor' criterion
-overNNf = function(x, y, check_proj = TRUE) {
+overNNf = function(x, y, check_proj = TRUE, radius = NULL) {
 
   if(
     class(x) %in% c("SpatialPoints", "SpatialPointsDataFrame") &
@@ -61,8 +80,13 @@ overNNf = function(x, y, check_proj = TRUE) {
   }
 
   # ID of nearest point in 'y' for each point in 'x'
-  nn = RANN::nn2(query = x_coord, data = y_coord, k = 1)
-  nn_ids = nn$nn.idx
+  if(is.null(radius)) {
+    nn = RANN::nn2(query = x_coord, data = y_coord, k = 1)
+  } else {
+    nn = RANN::nn2(query = x_coord, data = y_coord, k = 1, searchtype = "radius", radius = radius)
+  }
+  nn_ids = nn$nn.idx[, 1]
+  nn_ids[nn_ids == 0] = NA # No match
 
   # Take attributes from 'y' for the specified IDs
   if(class(y) == "SpatialPointsDataFrame")
