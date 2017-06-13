@@ -18,4 +18,3 @@ Title
 \examples{
 
 }
-

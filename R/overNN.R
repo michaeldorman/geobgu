@@ -1,11 +1,11 @@
-#'	Nearest neighbor spatial join
+#' Nearest neighbor spatial join
 #'
 #' Spatial join between two point layers based on nearest neighbors.
 #'
 #'	@param	x	geometry (locations) of the queries; A matrix of n-D points with row denoting points, first column x/longitude, second column y/latitude, or a \code{Spatial} object that has a coordinates method
 #'	@param	y	layer from which the geometries or attributes are queried; A matrix of n-D points with row denoting points, first column x/longitude, second column y/latitude, or a \code{Spatial} object that has a coordinates method
 #'	@return	If \code{y} is only geometry (\code{SpatialPoints}), a vector with the index of \code{y} for each geometry matching x. If \code{y} has attribute data (\code{SpatialPointsDataFrame}), attribute data are returned.
-#'	@examples
+#' @examples
 #' library(rgeos)
 #' data(states)
 #' data(cities)

@@ -1,11 +1,12 @@
-#'	Nearest neighbor spatial join
+#' Nearest neighbor spatial join
 #'
 #' Spatial join between two point layers based on nearest neighbors.
 #'
-#'	@param	x	geometry (locations) of the queries
-#'	@param	y	layer from which the geometries or attributes are queried
+#'	@param	x	Geometry (locations) of the queries
+#'	@param	y	Layer from which the geometries or attributes are queried
+#'	@param radius Search radius (in CRS units)
 #'	@return	If \code{y} is only geometry (\code{SpatialPoints}), a vector with the index of \code{y} for each geometry matching x. If \code{y} has attribute data (\code{SpatialPointsDataFrame}), attribute data are returned.
-#'	@examples
+#' @examples
 #' library(rgeos)
 #' library(rgdal)
 #' data(states)
@@ -33,6 +34,7 @@
 #'   proj4string = sp::CRS(sp::proj4string(ctr))
 #'   ), add = TRUE
 #' )
+#' }
 #' # Now with search 'radius' limitation...
 #' plot(cities)
 #' plot(states, add = TRUE, border = "grey")
@@ -56,7 +58,7 @@
 #' @export
 
 # Simple 'spatial only' join between two point layers according to 'nearest neighbor' criterion
-overNNf = function(x, y, check_proj = TRUE, radius = NULL) {
+overNNf = function(x, y, radius = NULL, check_proj = TRUE) {
 
   if(
     class(x) %in% c("SpatialPoints", "SpatialPointsDataFrame") &
