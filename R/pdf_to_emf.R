@@ -12,7 +12,7 @@
 #'
 #' @examples
 #' \dontrun{
-#' pdf_to_emf("~/test.pdf")
+#' pdf_to_emf(filename = "~/test.pdf")
 #' }
 
 pdf_to_emf = function(filename) {

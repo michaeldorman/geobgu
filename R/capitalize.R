@@ -11,9 +11,9 @@
 #'
 #' @examples
 #' name = c("zip code", "state", "final count")
-#' simpleCap(name)
+#' capitalize(name)
 
-simpleCap = function(x) {
+capitalize = function(x) {
   sapply(x, function(x) {
     s = strsplit(x, " ")[[1]]
     paste(

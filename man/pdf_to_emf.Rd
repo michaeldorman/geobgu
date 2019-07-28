@@ -17,6 +17,6 @@ The function creates an EMF file at the same location where the PDF is.
 }
 \examples{
 \dontrun{
-pdf_to_emf("~/test.pdf")
+pdf_to_emf(filename = "~/test.pdf")
 }
 }
