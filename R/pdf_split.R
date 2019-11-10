@@ -2,7 +2,7 @@
 #'
 #' Split a PDF file to separate files, one file per page. Requires \code{pdftk} command-line utility.
 #'
-#' The function create new files with pattern \code{filename_page_%s.pdf} in the same location where \code{filename.pdf} is.
+#' The function create new files with pattern \code{filename_page_\%s.pdf} in the same location where \code{filename.pdf} is.
 #'
 #' @param filename A PDF file name or file path
 #'

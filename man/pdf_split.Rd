@@ -12,6 +12,9 @@ pdf_split(filename)
 \description{
 Split a PDF file to separate files, one file per page. Requires \code{pdftk} command-line utility.
 }
+\details{
+The function create new files with pattern \code{filename_page_\%s.pdf} in the same location where \code{filename.pdf} is.
+}
 \examples{
 \dontrun{
 pdf_split(filename = "~/test.pdf")

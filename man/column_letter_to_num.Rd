@@ -2,7 +2,7 @@
 % Please edit documentation in R/column_letter_to_num.R
 \name{column_letter_to_num}
 \alias{column_letter_to_num}
-\title{Find the corresponding column number for an excel column letter}
+\title{Find the corresponding column number for an Excel column letter}
 \usage{
 column_letter_to_num(x)
 }
@@ -13,7 +13,7 @@ column_letter_to_num(x)
 A vector of column numbers
 }
 \description{
-Find the corresponding column number for an excel column letter
+Find the corresponding column number for an Excel column letter
 }
 \examples{
 column_letter_to_num("A")
@@ -22,6 +22,7 @@ column_letter_to_num(c("Z", "AA"))
 column_letter_to_num("BA")
 column_letter_to_num("AAA")
 column_letter_to_num(LETTERS)
+column_letter_to_num(NA)
 }
 \references{
 \url{https://stackoverflow.com/questions/34537243/convert-excel-column-names-to-numbers}

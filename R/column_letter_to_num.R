@@ -1,4 +1,4 @@
-#' Find the corresponding column number for an excel column letter
+#' Find the corresponding column number for an Excel column letter
 #'
 #' @param x A vector of Excel column letters
 #'
@@ -16,14 +16,21 @@
 #' column_letter_to_num("BA")
 #' column_letter_to_num("AAA")
 #' column_letter_to_num(LETTERS)
+#' column_letter_to_num(NA)
 
 column_letter_to_num = function(x) {
-  s_upper = toupper(x)
-  s_split = unlist(strsplit(s_upper, split = ""))
-  s_number = sapply(s_split, function(x) {which(LETTERS == x)})
-  numbers = 26^((length(s_number)-1):0)
-  column_number = sum(s_number * numbers)
-  column_number
+  result = rep(NA, length(x))
+  for(i in 1:length(x)) {
+    s = x[i]
+    if(!is.na(s)) {
+      s_upper = toupper(s)
+      s_split = unlist(strsplit(s_upper, split = ""))
+      s_number = sapply(s_split, function(x) {which(LETTERS == x)})
+      numbers = 26^((length(s_number)-1):0)
+      column_number = sum(s_number * numbers)
+      result[i] = column_number
+    }
+  }
+  result
 }
-column_letter_to_num = Vectorize(column_letter_to_num)
 
