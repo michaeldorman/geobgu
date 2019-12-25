@@ -1,10 +1,10 @@
 # geobgu
 
-This is a collection of convenience functions for work at the Department of Geography at BGU.
+This is a collection of utility functions for work at the Department of Geography at BGU.
 
 ## Installation
 
-You can install geobgu from github with:
+You can install `geobgu` from GitHub with:
 
 ```R
 # install.packages("devtools")
