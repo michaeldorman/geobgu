@@ -1,17 +1,19 @@
 Package: geobgu
 Type: Package
 Title: Utility Functions and Datasets for the Department of Geography at BGU
-Version: 0.2.2
+Version: 0.2.3
 Authors@R: person("Michael", "Dorman", email = "dorman@post.bgu.ac.il", role = c("aut", "cre"))
 Description: Collection of data processing functions, mostly for spatial data. Used to support data analysis for research projects condected at the Department of Geography and Environmental Development, Ben-Gurion University of the Negev.
 License: GPL-2
 LazyData: TRUE
 Depends:
-    R (>= 3.5.0)
-Imports:
+    R (>= 3.5.0),
     sf,
-    stars,
+    stars
+Imports:
     raster,
-    methods
+    methods,
+    mgcv,
+    parallel
 RoxygenNote: 7.0.2
 Encoding: UTF-8

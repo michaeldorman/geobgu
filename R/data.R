@@ -5,6 +5,10 @@
 #' @format An \code{sf} layer of type \code{POLYGON}
 #' @examples
 #' data(states)
+#'
+#' @importFrom stats complete.cases
+#' @importFrom stats predict
+#' @import sf stars
 
 "states"
 

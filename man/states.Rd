@@ -13,5 +13,6 @@ Polygonal layer with US states
 }
 \examples{
 data(states)
+
 }
 \keyword{datasets}
