@@ -4,7 +4,9 @@
 \name{states}
 \alias{states}
 \title{US states}
-\format{An \code{sf} layer of type \code{POLYGON}}
+\format{
+An \code{sf} layer of type \code{POLYGON}
+}
 \usage{
 states
 }

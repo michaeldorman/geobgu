@@ -4,7 +4,9 @@
 \name{cities}
 \alias{cities}
 \title{US cities}
-\format{An \code{sf} layer of type \code{POINT}}
+\format{
+An \code{sf} layer of type \code{POINT}
+}
 \usage{
 cities
 }

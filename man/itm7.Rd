@@ -4,7 +4,9 @@
 \name{itm7}
 \alias{itm7}
 \title{7-Parameter ITM projection}
-\format{\code{character}}
+\format{
+\code{character}
+}
 \usage{
 itm7
 }

@@ -3,8 +3,6 @@
 export(capitalize)
 export(column_letter_to_num)
 export(column_num_to_letter)
-export(detrend)
-export(flowlength)
 export(pdf_expand)
 export(pdf_split)
 export(pdf_to_emf)
