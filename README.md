@@ -8,6 +8,6 @@ You can install `geobgu` from GitHub with:
 
 ```R
 # install.packages("devtools")
-devtools::install_github("geobgu/michaeldorman")
+devtools::install_github("michaeldorman/geobgu")
 ```
 
