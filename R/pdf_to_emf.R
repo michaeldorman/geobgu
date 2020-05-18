@@ -18,7 +18,7 @@
 pdf_to_emf = function(filename) {
   input = normalizePath(filename)
   output = gsub("\\.pdf$", "\\.emf", input)
-  expr = paste0("inkscape --file=", input," --export-emf=", output)
+  expr = paste0("inkscape ", input," --export-type=emf -o ", output)
   system(expr)
 }
 
